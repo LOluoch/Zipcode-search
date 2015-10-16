@@ -21,11 +21,21 @@ class SearchController extends Controller
     }
 
     public function getFind(){
-        $input = 'anasco';
+
+        //$input = 'anasco';
         //query ZipCode model
-        $results = \App\ZipCode::where('City' or 'State','LIKE','%'.$input.'%')->get();
+        //$results = \App\ZipCode::where('City' or 'State','LIKE','%'.$input.'%')->get();
         //var_dump($results);
-        return $results;
+
+
+    }
+    public function postFind()
+    {
+        $input = \Input::get('text');
+        //query ZipCode model
+        $results [] = \App\ZipCode::where('City','LIKE','%'.$input.'%')
+            -> orWhere('State', 'LIKE','%'.$input.'%')->get();
+        return view('result',['results'=>$results]);
 
     }
 
